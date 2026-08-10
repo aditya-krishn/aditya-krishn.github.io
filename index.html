@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- EDIT: page title shown in the browser tab -->
+<title>Your Name — Academic Website</title>
+<!-- EDIT: short description for search engines / link previews -->
+<meta name="description" content="Personal academic website of Your Name, researcher in [field].">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --paper:      #faf9f6;
+    --ink:        #1b2233;
+    --slate:      #59607094;
+    --slate-solid:#565d6d;
+    --oxblood:    #7a2233;
+    --gold:       #9a7d34;
+    --hairline:   #e6e4dc;
+    --hairline-2: #ded9cd;
+
+    --display: "Fraunces", Georgia, serif;
+    --body:    "Newsreader", Georgia, serif;
+    --mono:    "IBM Plex Mono", ui-monospace, monospace;
+  }
+
+  * { box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: var(--body);
+    font-size: 19px;
+    line-height: 1.68;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  a { color: inherit; }
+
+  /* ---------- layout shell ---------- */
+  .shell {
+    display: grid;
+    grid-template-columns: 220px minmax(0, 640px);
+    gap: 72px;
+    max-width: 980px;
+    margin: 0 auto;
+    padding: 96px 40px 120px;
+  }
+
+  /* ---------- left rail ---------- */
+  .rail { position: sticky; top: 64px; align-self: start; }
+
+  .monogram {
+    font-family: var(--display);
+    font-weight: 600;
+    font-size: 30px;
+    line-height: 1;
+    letter-spacing: -0.01em;
+    margin: 0 0 4px;
+  }
+  .monogram-sub {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--slate-solid);
+    margin: 0 0 40px;
+  }
+
+  .rail-nav { display: flex; flex-direction: column; gap: 2px; }
+  .rail-nav a {
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+    text-decoration: none;
+    padding: 5px 0;
+    font-family: var(--mono);
+    font-size: 12.5px;
+    letter-spacing: 0.04em;
+    color: var(--slate-solid);
+    border-bottom: 1px solid transparent;
+    transition: color .18s ease;
+    width: fit-content;
+  }
+  .rail-nav a .num {
+    font-size: 10.5px;
+    color: var(--gold);
+    min-width: 20px;
+  }
+  .rail-nav a:hover,
+  .rail-nav a:focus-visible { color: var(--oxblood); }
+
+  .rail-foot {
+    margin-top: 40px;
+    font-family: var(--mono);
+    font-size: 11px;
+    line-height: 1.9;
+    color: var(--slate-solid);
+  }
+  .rail-foot a { color: var(--oxblood); text-decoration: none; }
+  .rail-foot a:hover { text-decoration: underline; }
+
+  /* ---------- hero ---------- */
+  .hero { margin-bottom: 84px; }
+  .hero .kicker {
+    font-family: var(--mono);
+    font-size: 12px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--oxblood);
+    margin: 0 0 20px;
+  }
+  .hero h1 {
+    font-family: var(--display);
+    font-weight: 500;
+    font-size: clamp(44px, 8vw, 68px);
+    line-height: 1.02;
+    letter-spacing: -0.02em;
+    margin: 0 0 22px;
+  }
+  .hero .thesis {
+    font-size: 22px;
+    line-height: 1.5;
+    margin: 0 0 28px;
+    max-width: 34ch;
+  }
+  .hero .thesis em { font-style: italic; color: var(--oxblood); }
+
+  .affil {
+    font-family: var(--mono);
+    font-size: 13px;
+    color: var(--slate-solid);
+    line-height: 1.7;
+    margin: 0 0 30px;
+  }
+
+  .quick-links { display: flex; flex-wrap: wrap; gap: 8px 10px; }
+  .quick-links a {
+    font-family: var(--mono);
+    font-size: 12.5px;
+    letter-spacing: 0.02em;
+    text-decoration: none;
+    color: var(--ink);
+    padding: 6px 13px;
+    border: 1px solid var(--hairline-2);
+    border-radius: 999px;
+    transition: border-color .18s ease, color .18s ease;
+  }
+  .quick-links a:hover,
+  .quick-links a:focus-visible {
+    border-color: var(--oxblood);
+    color: var(--oxblood);
+  }
+
+  /* ---------- sections ---------- */
+  section { margin-bottom: 76px; scroll-margin-top: 40px; }
+
+  .eyebrow {
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+    margin: 0 0 26px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--hairline);
+  }
+  .eyebrow .roman {
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--gold);
+    letter-spacing: 0.05em;
+  }
+  .eyebrow h2 {
+    font-family: var(--mono);
+    font-weight: 500;
+    font-size: 12.5px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--slate-solid);
+    margin: 0;
+  }
+
+  section p { margin: 0 0 18px; }
+  section p:last-child { margin-bottom: 0; }
+  .prose a { color: var(--oxblood); text-underline-offset: 3px; text-decoration-thickness: 1px; }
+
+  /* research interests */
+  .interests { list-style: none; margin: 0; padding: 0; }
+  .interests li {
+    padding: 18px 0;
+    border-bottom: 1px solid var(--hairline);
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 4px;
+  }
+  .interests li:first-child { padding-top: 0; }
+  .interests .term {
+    font-family: var(--display);
+    font-size: 21px;
+    font-weight: 500;
+  }
+  .interests .desc { color: var(--slate-solid); font-size: 17.5px; line-height: 1.55; }
+
+  /* publications — the signature: a real reference list */
+  .pubs { list-style: none; margin: 0; padding: 0; counter-reset: ref; }
+  .pubs li {
+    position: relative;
+    padding: 20px 0 20px 44px;
+    border-bottom: 1px solid var(--hairline);
+    counter-increment: ref;
+  }
+  .pubs li:first-child { padding-top: 0; }
+  .pubs li::before {
+    content: "[" counter(ref) "]";
+    position: absolute;
+    left: 0;
+    top: 21px;
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--gold);
+  }
+  .pubs li:first-child::before { top: 1px; }
+  .pubs .p-title { font-weight: 500; }
+  .pubs .p-authors { color: var(--slate-solid); }
+  .pubs .p-authors .me { color: var(--ink); border-bottom: 1px solid var(--gold); }
+  .pubs .p-venue {
+    font-family: var(--mono);
+    font-size: 12.5px;
+    color: var(--slate-solid);
+    margin-top: 4px;
+    display: block;
+  }
+  .pubs .tags { margin-top: 8px; display: flex; gap: 7px; flex-wrap: wrap; }
+  .pubs .tags a {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.04em;
+    text-decoration: none;
+    color: var(--oxblood);
+    border: 1px solid var(--hairline-2);
+    padding: 2px 8px;
+    border-radius: 4px;
+    transition: border-color .16s ease;
+  }
+  .pubs .tags a:hover { border-color: var(--oxblood); }
+
+  /* contact */
+  .contact-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 22px 40px;
+  }
+  .contact-grid .label {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--slate-solid);
+    margin: 0 0 4px;
+  }
+  .contact-grid .val a { color: var(--oxblood); text-decoration: none; }
+  .contact-grid .val a:hover { text-decoration: underline; }
+
+  footer {
+    max-width: 980px;
+    margin: 0 auto;
+    padding: 0 40px 60px;
+    font-family: var(--mono);
+    font-size: 11.5px;
+    color: var(--slate-solid);
+  }
+  footer .rule { border: none; border-top: 1px solid var(--hairline); margin: 0 0 20px; }
+
+  /* ---------- responsive ---------- */
+  @media (max-width: 760px) {
+    .shell {
+      grid-template-columns: 1fr;
+      gap: 0;
+      padding: 40px 24px 80px;
+    }
+    .rail {
+      position: static;
+      margin-bottom: 56px;
+      padding-bottom: 28px;
+      border-bottom: 1px solid var(--hairline);
+    }
+    .monogram-sub { margin-bottom: 24px; }
+    .rail-nav { flex-flow: row wrap; gap: 6px 18px; }
+    .rail-nav a { padding: 2px 0; }
+    .rail-foot { display: none; }
+    body { font-size: 18px; }
+    .contact-grid { grid-template-columns: 1fr; }
+    footer { padding: 0 24px 48px; }
+  }
+
+  a:focus-visible {
+    outline: 2px solid var(--oxblood);
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    * { transition: none !important; }
+  }
+</style>
+</head>
+<body>
+
+<div class="shell">
+
+  <!-- ===================== LEFT RAIL ===================== -->
+  <aside class="rail">
+    <!-- EDIT: your initials or a short version of your name -->
+    <p class="monogram">Y.&nbsp;Name</p>
+    <p class="monogram-sub">Est. 2026</p>
+
+    <nav class="rail-nav" aria-label="Sections">
+      <a href="#about"><span class="num">I</span> About</a>
+      <a href="#research"><span class="num">II</span> Research</a>
+      <a href="#publications"><span class="num">III</span> Publications</a>
+      <a href="#teaching"><span class="num">IV</span> Teaching</a>
+      <a href="#contact"><span class="num">V</span> Contact</a>
+    </nav>
+
+    <div class="rail-foot">
+      <!-- EDIT: quick external links -->
+      <a href="#" target="_blank" rel="noopener">CV (PDF)</a><br>
+      <a href="#" target="_blank" rel="noopener">Google Scholar</a><br>
+      <a href="#" target="_blank" rel="noopener">GitHub</a>
+    </div>
+  </aside>
+
+  <!-- ===================== MAIN ===================== -->
+  <main>
+
+    <!-- ------- HERO ------- -->
+    <header class="hero">
+      <!-- EDIT: your role -->
+      <p class="kicker">PhD Candidate · [Department]</p>
+      <!-- EDIT: your name -->
+      <h1>Your Name</h1>
+      <!-- EDIT: one sentence on what you study and why it matters -->
+      <p class="thesis">I study <em>[your research area]</em> — asking how [the central question that animates your work].</p>
+      <!-- EDIT: affiliation -->
+      <p class="affil">[University] &nbsp;·&nbsp; [City, Country]<br>[Lab or Group Name]</p>
+
+      <div class="quick-links">
+        <!-- EDIT: replace # and text -->
+        <a href="mailto:you@university.edu">✉ you@university.edu</a>
+        <a href="#" target="_blank" rel="noopener">CV</a>
+        <a href="#" target="_blank" rel="noopener">Scholar</a>
+        <a href="#" target="_blank" rel="noopener">ORCID</a>
+      </div>
+    </header>
+
+    <!-- ------- ABOUT ------- -->
+    <section id="about">
+      <div class="eyebrow"><span class="roman">I.</span><h2>About</h2></div>
+      <div class="prose">
+        <!-- EDIT: 2–3 short paragraphs -->
+        <p>I'm a [position] in [department] at [university], where I work with <a href="#">[advisor]</a> on [broad theme]. My research combines [approach A] and [approach B] to understand [problem].</p>
+        <p>Before [current place], I completed my [degree] at [institution], where I focused on [earlier topic]. I care about [a value or motivation that shapes your work].</p>
+      </div>
+    </section>
+
+    <!-- ------- RESEARCH ------- -->
+    <section id="research">
+      <div class="eyebrow"><span class="roman">II.</span><h2>Research Interests</h2></div>
+      <ul class="interests">
+        <!-- EDIT: your themes -->
+        <li>
+          <span class="term">Theme one</span>
+          <span class="desc">A sentence describing what you investigate here and the questions you're chasing.</span>
+        </li>
+        <li>
+          <span class="term">Theme two</span>
+          <span class="desc">A sentence describing this line of work and how it connects to the first.</span>
+        </li>
+        <li>
+          <span class="term">Theme three</span>
+          <span class="desc">A sentence on methods, applications, or open problems you find compelling.</span>
+        </li>
+      </ul>
+    </section>
+
+    <!-- ------- PUBLICATIONS ------- -->
+    <section id="publications">
+      <div class="eyebrow"><span class="roman">III.</span><h2>Selected Publications</h2></div>
+      <ol class="pubs">
+        <!-- EDIT: each <li> is one paper. Wrap your own name in <span class="me"> -->
+        <li>
+          <span class="p-title">Title of your most recent paper goes here.</span>
+          <div class="p-authors"><span class="me">Your Name</span>, Coauthor A, Coauthor B.</div>
+          <span class="p-venue">Conference / Journal · 2026</span>
+          <div class="tags">
+            <a href="#" target="_blank" rel="noopener">PDF</a>
+            <a href="#" target="_blank" rel="noopener">arXiv</a>
+            <a href="#" target="_blank" rel="noopener">Code</a>
+          </div>
+        </li>
+        <li>
+          <span class="p-title">An earlier paper with a suitably scholarly title.</span>
+          <div class="p-authors">Coauthor C, <span class="me">Your Name</span>, Coauthor D.</div>
+          <span class="p-venue">Journal Name, Vol. 12 · 2025</span>
+          <div class="tags">
+            <a href="#" target="_blank" rel="noopener">PDF</a>
+            <a href="#" target="_blank" rel="noopener">DOI</a>
+          </div>
+        </li>
+        <li>
+          <span class="p-title">A first-authored workshop or preprint.</span>
+          <div class="p-authors"><span class="me">Your Name</span>, Coauthor E.</div>
+          <span class="p-venue">Workshop · 2024</span>
+          <div class="tags">
+            <a href="#" target="_blank" rel="noopener">PDF</a>
+          </div>
+        </li>
+      </ol>
+    </section>
+
+    <!-- ------- TEACHING ------- -->
+    <section id="teaching">
+      <div class="eyebrow"><span class="roman">IV.</span><h2>Teaching</h2></div>
+      <div class="prose">
+        <!-- EDIT or delete this whole section if not needed -->
+        <p>Teaching assistant for <a href="#">[Course Number: Course Name]</a> (Spring 2026) and <a href="#">[Course]</a> (Fall 2025). I'm happy to discuss projects with motivated students.</p>
+      </div>
+    </section>
+
+    <!-- ------- CONTACT ------- -->
+    <section id="contact">
+      <div class="eyebrow"><span class="roman">V.</span><h2>Contact</h2></div>
+      <div class="contact-grid">
+        <div>
+          <p class="label">Email</p>
+          <p class="val"><a href="mailto:you@university.edu">you@university.edu</a></p>
+        </div>
+        <div>
+          <p class="label">Office</p>
+          <p class="val">[Building, Room · University]</p>
+        </div>
+        <div>
+          <p class="label">Scholar</p>
+          <p class="val"><a href="#" target="_blank" rel="noopener">scholar.google.com/…</a></p>
+        </div>
+        <div>
+          <p class="label">Elsewhere</p>
+          <p class="val"><a href="#" target="_blank" rel="noopener">GitHub</a> · <a href="#" target="_blank" rel="noopener">Mastodon</a></p>
+        </div>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<footer>
+  <hr class="rule">
+  <!-- EDIT: year and name -->
+  <p>© 2026 Your Name · Last updated August 2026 · Built with plain HTML on GitHub Pages.</p>
+</footer>
+
+</body>
+</html>
